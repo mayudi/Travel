@@ -1,25 +1,35 @@
 <template>
-   <ul class="list">
-       <li class="item" v-for="item of letters" :key="item">{{item}}</li>
-   </ul>
+  <ul class="list">
+    <li class="item"
+        v-for="item of letters"
+        :key="item"
+        @click="handleLetterClick"
+    >{{item}}
+    </li>
+  </ul>
 </template>
 
 <script>
-export default {
-  name: 'CityAlphabet',
-  props: {
-    cities: Object
-  },
-  computed: {
-    letters () {
-      const letters = []
-      for (let i in this.cities) {
-        letters.push(i)
+  export default {
+    name: 'CityAlphabet',
+    props: {
+      cities: Object
+    },
+    methods: {
+      handleLetterClick (e) {
+        this.$emit('change',e.target.innerText)
       }
-      return letters
+    },
+    computed: {
+      letters () {
+        const letters = []
+        for (let i in this.cities) {
+          letters.push(i)
+        }
+        return letters
+      }
     }
   }
-}
 </script>
 
 <style lang="stylus" scoped>
@@ -33,8 +43,9 @@ export default {
     right 0
     bottom 0
     width .4rem
+
     .item
-        line-height .4rem
-        color $bgColor
-        text-align center
+      line-height .4rem
+      color $bgColor
+      text-align center
 </style>
