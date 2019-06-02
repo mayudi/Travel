@@ -3,6 +3,10 @@
     <li class="item"
         v-for="item of letters"
         :key="item"
+        :ref="item"
+        @touchStart.prevent="handleTouchStart"
+        @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
         @click="handleLetterClick"
     >{{item}}
     </li>
@@ -10,26 +14,57 @@
 </template>
 
 <script>
-  export default {
-    name: 'CityAlphabet',
-    props: {
-      cities: Object
+export default {
+  name: 'CityAlphabet',
+  props: {
+    cities: Object
+  },
+  data () {
+    return {
+      touchStatus: false,
+      startY: 0,
+      timer: null
+    }
+  },
+  updated () {
+    const aa = 'A'
+    this.startY = this.$refs[aa][0].offsetTop
+  },
+  methods: {
+    handleLetterClick (e) {
+      this.$emit('change', e.target.innerText)
     },
-    methods: {
-      handleLetterClick (e) {
-        this.$emit('change',e.target.innerText)
-      }
+    handleTouchStart () {
+      this.touchStatus = true
     },
-    computed: {
-      letters () {
-        const letters = []
-        for (let i in this.cities) {
-          letters.push(i)
+    handleTouchMove (e) {
+      if (this.touchStatus) {
+        if (this.timer) {
+          clearTimeout(this.timer)
         }
-        return letters
+        this.timer = setTimeout(() => {
+          const touchY = e.touches[0].clientY - 79
+          const index = Math.floor((touchY - this.startY) / 20)
+          if (index >= 0 && index < this.letters.length) {
+            this.$emit('change', this.letters[index])
+          }
+        }, 16)
       }
+    },
+    handleTouchEnd () {
+      this.touchStatus = false
+    }
+  },
+  computed: {
+    letters () {
+      const letters = []
+      for (let i in this.cities) {
+        letters.push(i)
+      }
+      return letters
     }
   }
+}
 </script>
 
 <style lang="stylus" scoped>
