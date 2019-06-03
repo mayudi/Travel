@@ -15,6 +15,7 @@ import HomeIcons from './components/Icons'
 import HomeRecommend from './components/Recommend'
 import HomeWeekend from './components/Weekend'
 import axios from 'axios'
+import api from './../axios/api.js'
 export default {
   name: 'Home',
   components: {
@@ -36,6 +37,12 @@ export default {
     getHomeInfo () {
       axios.get('/api/index.json')
         .then(this.getHomeInfoSucc)
+		https://github.com/Jasonwang911/vue_mockjs/tree/master/static
+		api.getData('/api/index')
+      .then(res => {
+        console.log(res);
+        this.getHomeInfoSucc(res);
+      });
     },
     getHomeInfoSucc (res) {
       res = res.data

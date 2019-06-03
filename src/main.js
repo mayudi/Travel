@@ -11,6 +11,7 @@ import 'styles/reset.css'
 import 'styles/border.css'
 import 'styles/iconfont.css'
 import 'swiper/dist/css/swiper.css'
+require('./mock.js')
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
