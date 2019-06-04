@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     getHomeInfo () {
-      axios.get('/api/index.json')
+      axios.get('https://www.easy-mock.com/mock/5cf5d5b80a6c103663bf0623/index')
         .then(this.getHomeInfoSucc)
 		https://github.com/Jasonwang911/vue_mockjs/tree/master/static
 		api.getData('/api/index')
