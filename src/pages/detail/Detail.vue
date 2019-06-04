@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     getDetailInfo () {
-      axios.get('/api/detail.json', {
+      axios.get('https://www.easy-mock.com/mock/5cf5d5b80a6c103663bf0623/detail', {
         params: {
           id: this.$route.params.id
         }
